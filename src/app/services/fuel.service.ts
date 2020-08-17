@@ -8,18 +8,16 @@ import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { Fuel } from '../models/fuel';
 import { User } from '../models/user';
+import { API } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FuelService {
-  urlFuel = '/api/historico';
-  urlUser = '/api/usuarios';
-
   // injetando o HttpClient
   constructor(private httpClient: HttpClient) {}
 
-  // Headers
+  // Headers - Cabeçalho das requisições
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json; charset=utf-8',
@@ -33,14 +31,14 @@ export class FuelService {
   // Obtem todos os combustiveis
   getFuels(): Observable<Fuel> {
     return this.httpClient
-      .get<Fuel>(this.urlFuel, this.httpOptions)
+      .get<Fuel>(`${API.FUEL_URL}`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
 
   // salva um combustível
   saveFuel(fuel: Fuel): Observable<Fuel> {
     return this.httpClient
-      .post<Fuel>(this.urlFuel, JSON.stringify(fuel), this.httpOptions)
+      .post<Fuel>(`${API.FUEL_URL}`, JSON.stringify(fuel), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
 
@@ -48,7 +46,7 @@ export class FuelService {
   updateFuel(fuel: Fuel): Observable<Fuel> {
     return this.httpClient
       .put<Fuel>(
-        this.urlFuel + '/' + fuel.id,
+        `${API.FUEL_URL}/${fuel.id}`,
         JSON.stringify(fuel),
         this.httpOptions
       )
@@ -58,20 +56,20 @@ export class FuelService {
   // deleta um combustível
   deleteFuel(fuel: Fuel) {
     return this.httpClient
-      .delete<Fuel>(this.urlFuel + '/' + fuel.id, this.httpOptions)
+      .delete<Fuel>(`${API.FUEL_URL}/${fuel.id}`, this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
   }
 
   //Users
   getUsers(): Observable<User> {
     return this.httpClient
-      .get<User>(this.urlUser, this.httpOptions)
+      .get<User>(`${API.USER_URL}`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
 
   saveUser(user: User): Observable<User> {
     return this.httpClient
-      .post<User>(this.urlUser, JSON.stringify(user), this.httpOptions)
+      .post<User>(`${API.USER_URL}`, JSON.stringify(user), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
 

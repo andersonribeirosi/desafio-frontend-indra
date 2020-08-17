@@ -84,6 +84,9 @@
             [ngClass]="{ 'is-invalid': f.submitted && data.invalid }"
             placeholder="Informe a data: dd/MM/yyyy"
           />
+          <!-- Validação do campo data 
+          A diretiva estrutural *ngIf verifica se o campo está preenchido ou inválido
+          -->
           <div *ngIf="f.submitted && data.invalid" class="invalid-feedback">
             <div *ngIf="data.errors.required">Data é obrigatório</div>
           </div>
@@ -101,6 +104,9 @@
             [ngClass]="{ 'is-invalid': f.submitted && combustivel.invalid }"
             placeholder="Informe o tipo de combustível"
           />
+          <!-- Validação do campo combustivel - tipo de combustivel 
+          A diretiva estrutural *ngIf verifica se o campo está preenchido ou inválido
+          -->
           <div
             *ngIf="f.submitted && combustivel.invalid"
             class="invalid-feedback"
@@ -123,6 +129,10 @@
             [ngClass]="{ 'is-invalid': f.submitted && preco.invalid }"
             placeholder="Informe o preço"
           />
+
+          <!-- Validação do campo preço  - tipo de combustivel 
+          A diretiva estrutural *ngIf verifica se o campo está preenchido ou inválido
+          -->
           <div *ngIf="f.submitted && preco.invalid" class="invalid-feedback">
             <div *ngIf="preco.errors.required">Preço é obrigatório</div>
           </div>
