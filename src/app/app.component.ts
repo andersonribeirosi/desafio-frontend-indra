@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HistoryService } from './services/historic.service';
+import { HistoryService } from './services/history.service';
 import { Fuel } from './models/fuel';
 import { NgForm } from '@angular/forms';
 
@@ -31,10 +31,10 @@ export class AppComponent implements OnInit {
     }
   }
 
-  // Chama o serviço para obtém todos os carros
+  // Chama o serviço para obter todos os combustiveis
   getFuels() {
-    this.historyService.getFuels().subscribe((historicos: any) => {
-      this.histories = historicos;
+    this.historyService.getFuels().subscribe((histories: any) => {
+      this.histories = histories;
     });
   }
 

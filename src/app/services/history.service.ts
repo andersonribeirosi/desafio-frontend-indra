@@ -7,12 +7,14 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { Fuel } from '../models/fuel';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HistoryService {
-  url = 'https://combustivelapp.herokuapp.com/api/historico';
+  urlHistory = 'https://combustivelapp.herokuapp.com/api/historico';
+  urlUser = 'https://combustivelapp.herokuapp.com/api/usuarios';
 
   // injetando o HttpClient
   constructor(private httpClient: HttpClient) {}
@@ -24,34 +26,17 @@ export class HistoryService {
     }),
   };
 
-  // httpOptions = {
-  //   headers: new HttpHeaders().set(
-  //     'Access-Control-Allow-Origin',
-  //     'http://localhost:4200'
-  //   ),
-  // };
-
-  // Obtem todos os carros
+  // Obtem todos os combustiveis
   getFuels(): Observable<Fuel> {
     return this.httpClient
-      .get<Fuel>(
-        'https://combustivelapp.herokuapp.com/api/historico',
-        this.httpOptions
-      )
+      .get<Fuel>(this.urlHistory, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
-
-  // Obtem um carro pelo id
-  // getCarById(id: number): Observable<Combustivel> {
-  //   return this.httpClient
-  //     .get<Combustivel>(this.url + '/' + id)
-  //     .pipe(retry(2), catchError(this.handleError));
-  // }
 
   // salva um combustível
   saveFuel(fuel: Fuel): Observable<Fuel> {
     return this.httpClient
-      .post<Fuel>(this.url, JSON.stringify(fuel), this.httpOptions)
+      .post<Fuel>(this.urlHistory, JSON.stringify(fuel), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
 
@@ -59,7 +44,7 @@ export class HistoryService {
   updateFuel(fuel: Fuel): Observable<Fuel> {
     return this.httpClient
       .put<Fuel>(
-        this.url + '/' + fuel.id,
+        this.urlHistory + '/' + fuel.id,
         JSON.stringify(fuel),
         this.httpOptions
       )
@@ -69,8 +54,21 @@ export class HistoryService {
   // deleta um combustível
   deleteFuel(fuel: Fuel) {
     return this.httpClient
-      .delete<Fuel>(this.url + '/' + fuel.id, this.httpOptions)
+      .delete<Fuel>(this.urlHistory + '/' + fuel.id, this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
+  }
+
+  //Users
+  getUsers(): Observable<User> {
+    return this.httpClient
+      .get<User>(this.urlUser, this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+
+  saveUser(user: User): Observable<User> {
+    return this.httpClient
+      .post<User>(this.urlHistory, JSON.stringify(user), this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
   }
 
   // Manipulação de erros
