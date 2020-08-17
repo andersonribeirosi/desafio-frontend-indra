@@ -1,0 +1,150 @@
+<div class="container">
+  <div>
+    <button
+      id="btn-user"
+      type="button"
+      class="btn btn-info btn-sm"
+      (click)="goToUsers()"
+    >
+      Lista de Usuários
+    </button>
+    <button
+      type="button"
+      class="btn btn-success btn-sm ml-1"
+      (click)="reloadPage()"
+    >
+      Atualizar Página
+    </button>
+  </div>
+  <div class="card list-fuel">
+    <h5 class="card-header"><strong>Lista de Combustíveis</strong></h5>
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Data</th>
+            <th scope="col">Combustível</th>
+            <th scope="col">Preço</th>
+            <th scope="col">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let history of histories">
+            <td>{{ history.id }}</td>
+            <td>{{ history.data }}</td>
+            <td>{{ history.combustivel }}</td>
+            <td>{{ history.preco | currency }}</td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-warning btn-sm"
+                (click)="editFuel(history)"
+              >
+                Editar
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger btn-sm ml-1"
+                (click)="deleteFuel(history)"
+              >
+                Deletar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card add-fuel">
+    <h5 class="card-header">
+      <strong>Adicionar / Atualizar combustível</strong>
+    </h5>
+    <div class="card-body">
+      <form
+        id="add-form"
+        (ngSubmit)="f.form.valid && saveFuel(f)"
+        #f="ngForm"
+        novalidate
+      >
+        <div class="form-group">
+          <label for="data">Data</label>
+          <input
+            type="string"
+            [(ngModel)]="history.data"
+            id="data"
+            name="data"
+            #data="ngModel"
+            required
+            class="form-control"
+            [ngClass]="{ 'is-invalid': f.submitted && data.invalid }"
+            placeholder="Informe a data: dd/MM/yyyy"
+          />
+          <!-- Validação do campo data 
+          A diretiva estrutural *ngIf verifica se o campo está preenchido ou inválido
+          -->
+          <div *ngIf="f.submitted && data.invalid" class="invalid-feedback">
+            <div *ngIf="data.errors.required">Data é obrigatório</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="color">Combustível</label>
+          <input
+            type="text"
+            [(ngModel)]="history.combustivel"
+            id="combustivel"
+            name="combustivel"
+            #combustivel="ngModel"
+            required
+            class="form-control"
+            [ngClass]="{ 'is-invalid': f.submitted && combustivel.invalid }"
+            placeholder="Informe o tipo de combustível"
+          />
+          <!-- Validação do campo combustivel - tipo de combustivel 
+          A diretiva estrutural *ngIf verifica se o campo está preenchido ou inválido
+          -->
+          <div
+            *ngIf="f.submitted && combustivel.invalid"
+            class="invalid-feedback"
+          >
+            <div *ngIf="combustivel.errors.required">
+              Combustível é obrigatório
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="preco">Preço</label>
+          <input
+            type="number"
+            [(ngModel)]="history.preco"
+            id="preco"
+            name="preco"
+            #preco="ngModel"
+            required
+            class="form-control"
+            [ngClass]="{ 'is-invalid': f.submitted && preco.invalid }"
+            placeholder="Informe o preço"
+          />
+
+          <!-- Validação do campo preço  - tipo de combustivel 
+          A diretiva estrutural *ngIf verifica se o campo está preenchido ou inválido
+          -->
+          <div *ngIf="f.submitted && preco.invalid" class="invalid-feedback">
+            <div *ngIf="preco.errors.required">Preço é obrigatório</div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-add-fuel">
+          Salvar
+        </button>
+        <button
+          type="reset"
+          class="btn btn-secondary btn-add-fuel"
+          (click)="cleanForm(f)"
+        >
+          Limpar campos
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

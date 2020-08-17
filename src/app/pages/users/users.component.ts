@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { FuelService } from 'src/app/services/fuel.service';
-import { Fuel } from 'src/app/models/fuel';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -13,16 +12,10 @@ import { Router } from '@angular/router';
 export class UsersComponent implements OnInit {
   user = {} as User;
   users: User[];
-  history = {} as Fuel;
-  histories: Fuel[];
 
-  constructor(
-    private userService: FuelService,
-    private historyService: FuelService,
-    private router: Router
-  ) {}
+  constructor(private fuelService: FuelService, private router: Router) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.getUsers();
   }
 
@@ -31,52 +24,45 @@ export class UsersComponent implements OnInit {
   }
 
   getUsers() {
-    this.userService.getUsers().subscribe((users: any) => {
+    this.fuelService.getUsers().subscribe((users: any) => {
       this.users = users;
       console.log(users);
     });
   }
 
-  // defini se um carro será criado ou atualizado
-  saveFuel(form: NgForm) {
-    if (this.history.id !== undefined) {
-      this.historyService.updateFuel(this.history).subscribe(() => {
+  saveUser(form: NgForm) {
+    if (this.user.id !== undefined) {
+      this.fuelService.updateUser(this.user).subscribe(() => {
         this.cleanForm(form);
       });
     } else {
-      this.historyService.saveFuel(this.history).subscribe(() => {
+      this.fuelService.saveUser(this.user).subscribe(() => {
         this.cleanForm(form);
       });
     }
   }
 
-  // Chama o serviço para obter todos os combustiveis
-  getFuels() {
-    this.historyService.getFuels().subscribe((histories: any) => {
-      this.histories = histories;
-    });
-  }
-
-  reloadPage() {
-    location.reload();
-  }
-
-  // deleta um carro
-  deleteFuel(fuel: Fuel, form: NgForm) {
-    this.historyService.deleteFuel(fuel).subscribe(() => {
-      this.getFuels();
+  // deleta um usuario
+  deleteUser(user: User) {
+    this.fuelService.deleteUser(user).subscribe(() => {
+      this.getUsers();
     });
   }
 
   // Pega os dados para serem editados.
-  editFuel(fuel: Fuel) {
-    this.history = { ...fuel };
+  editUser(user1: User) {
+    this.user = { ...user1 };
+  }
+
+  // Atualiza a página
+  reloadPage() {
+    location.reload();
   }
 
   // limpa o formulario
   cleanForm(form: NgForm) {
-    this.getFuels();
+    this.getUsers();
     form.resetForm();
-    this.history = {} as Fuel;
+    this.user = {} as User;
   }
 }

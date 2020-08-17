@@ -7,7 +7,7 @@
   margin-bottom: 30px;
 }
 
-.add-user {
+.add-fuel {
   margin-bottom: 30px;
 }
 
@@ -16,10 +16,10 @@
   float: right;
 }
 
-.list-user {
+.list-fuel {
   margin-bottom: 50px;
 }
 
-.btn-add-user {
+.btn-add-fuel {
   margin-right: 10px;
 }

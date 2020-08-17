@@ -73,6 +73,24 @@ export class FuelService {
       .pipe(retry(2), catchError(this.handleError));
   }
 
+  // atualiza um combustivel
+  updateUser(user: User): Observable<User> {
+    return this.httpClient
+      .put<User>(
+        `${API.USER_URL}/${user.id}`,
+        JSON.stringify(user),
+        this.httpOptions
+      )
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  // deleta um usuario
+  deleteUser(user: User) {
+    return this.httpClient
+      .delete<User>(`${API.USER_URL}/${user.id}`, this.httpOptions)
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
   // Manipulação de erros
   handleError(error: HttpErrorResponse) {
     let errorMessage = '';
