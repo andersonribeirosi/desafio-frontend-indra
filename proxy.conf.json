@@ -1,0 +1,7 @@
+{
+  "/api": {
+    "target": "https://combustivelapp.herokuapp.com",
+    "secure": false,
+    "pathRewrite": { "^/api": "" }
+  }
+}

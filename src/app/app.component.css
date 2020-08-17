@@ -1,0 +1,25 @@
+.container {
+  margin-top: 30px;
+}
+
+.breadcrumb {
+  background-color: rgb(43, 34, 34);
+  padding-left: 9%;
+}
+
+.breadcrumb-item {
+  color: white;
+  text-align: center;
+}
+
+.add-fuel {
+  margin-bottom: 30px;
+}
+
+.list-fuel {
+  margin-bottom: 50px;
+}
+
+.btn-add-fuel {
+  margin-right: 10px;
+}
