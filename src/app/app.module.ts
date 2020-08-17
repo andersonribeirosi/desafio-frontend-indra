@@ -6,9 +6,10 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UsersComponent } from './pages/users/users.component';
+import { NavbarComponent } from './pages/navbar/navbar.component';
 
 @NgModule({
-  declarations: [AppComponent, UsersComponent],
+  declarations: [AppComponent, UsersComponent, NavbarComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
