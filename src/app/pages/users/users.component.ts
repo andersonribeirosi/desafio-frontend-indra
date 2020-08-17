@@ -3,6 +3,7 @@ import { User } from 'src/app/models/user';
 import { FuelService } from 'src/app/services/fuel.service';
 import { Fuel } from 'src/app/models/fuel';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -17,11 +18,16 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private userService: FuelService,
-    private historyService: FuelService
+    private historyService: FuelService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.getUsers();
+  }
+
+  goToUsers() {
+    this.router.navigateByUrl('/historico');
   }
 
   getUsers() {

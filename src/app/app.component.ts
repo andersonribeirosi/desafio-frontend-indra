@@ -3,6 +3,7 @@ import { FuelService } from './services/fuel.service';
 import { Fuel } from './models/fuel';
 import { NgForm } from '@angular/forms';
 import { User } from './models/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,7 @@ export class AppComponent implements OnInit {
   user = {} as User;
   users: User[];
 
-  constructor(private fuelService: FuelService) {}
+  constructor(private fuelService: FuelService, private router: Router) {}
 
   ngOnInit() {
     this.getFuels();
@@ -57,6 +58,10 @@ export class AppComponent implements OnInit {
   // Atualiza a página
   reloadPage() {
     location.reload();
+  }
+
+  goToUsers() {
+    this.router.navigateByUrl('/user');
   }
 
   getUsers() {
