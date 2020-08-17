@@ -1,9 +1,14 @@
-<app-users></app-users>
+<!-- <app-users></app-users> -->
 <app-navbar></app-navbar>
 
 <div class="container">
   <div>
-    <button id="btn-user" class="btn btn-info btn-sm">
+    <button
+      id="btn-user"
+      type="button"
+      class="btn btn-info btn-sm"
+      (click)="getUsers()"
+    >
       Lista de Usuários
     </button>
     <button
@@ -15,9 +20,9 @@
     </button>
   </div>
   <div class="card list-fuel">
-    <h5 class="card-header">Lista de Combustíveis</h5>
+    <h5 class="card-header"><strong>Lista de Combustíveis</strong></h5>
     <div class="card-body">
-      <table class="table">
+      <table class="table table-striped">
         <thead>
           <tr>
             <th scope="col">Id</th>
@@ -56,7 +61,9 @@
   </div>
 
   <div class="card add-fuel">
-    <h5 class="card-header">Adicionar/Atualizar combustível</h5>
+    <h5 class="card-header">
+      <strong>Adicionar / Atualizar combustível</strong>
+    </h5>
     <div class="card-body">
       <form
         id="add-form"

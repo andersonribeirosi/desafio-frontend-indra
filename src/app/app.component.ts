@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HistoryService } from './services/history.service';
+import { FuelService } from './services/fuel.service';
 import { Fuel } from './models/fuel';
 import { NgForm } from '@angular/forms';
+import { User } from './models/user';
 
 @Component({
   selector: 'app-root',
@@ -12,25 +13,23 @@ export class AppComponent implements OnInit {
   history = {} as Fuel;
   histories: Fuel[];
 
-  constructor(private historyService: HistoryService) {}
+  user = {} as User;
+  users: User[];
+
+  constructor(private fuelService: FuelService) {}
 
   ngOnInit() {
     this.getFuels();
-    // this.load();
   }
 
-  load() {
-    location.reload();
-  }
-
-  // defini se um carro será criado ou atualizado
+  // Define se um combustível será criado ou atualizado
   saveFuel(form: NgForm) {
     if (this.history.id !== undefined) {
-      this.historyService.updateFuel(this.history).subscribe(() => {
+      this.fuelService.updateFuel(this.history).subscribe(() => {
         this.cleanForm(form);
       });
     } else {
-      this.historyService.saveFuel(this.history).subscribe(() => {
+      this.fuelService.saveFuel(this.history).subscribe(() => {
         this.cleanForm(form);
       });
     }
@@ -38,18 +37,14 @@ export class AppComponent implements OnInit {
 
   // Chama o serviço para obter todos os combustiveis
   getFuels() {
-    this.historyService.getFuels().subscribe((histories: any) => {
+    this.fuelService.getFuels().subscribe((histories: any) => {
       this.histories = histories;
     });
   }
 
-  reloadPage() {
-    this.load();
-  }
-
-  // deleta um carro
+  // deleta um combustível
   deleteFuel(fuel: Fuel) {
-    this.historyService.deleteFuel(fuel).subscribe(() => {
+    this.fuelService.deleteFuel(fuel).subscribe(() => {
       this.getFuels();
     });
   }
@@ -57,6 +52,18 @@ export class AppComponent implements OnInit {
   // Pega os dados para serem editados.
   editFuel(fuel: Fuel) {
     this.history = { ...fuel };
+  }
+
+  // Atualiza a página
+  reloadPage() {
+    location.reload();
+  }
+
+  getUsers() {
+    this.fuelService.getUsers().subscribe((users: any) => {
+      this.users = users;
+      console.log(users);
+    });
   }
 
   // limpa o formulario

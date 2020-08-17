@@ -12,8 +12,8 @@ import { User } from '../models/user';
 @Injectable({
   providedIn: 'root',
 })
-export class HistoryService {
-  urlFuel = 'api/historico';
+export class FuelService {
+  urlFuel = '/api/historico';
   urlUser = '/api/usuarios';
 
   // injetando o HttpClient
@@ -22,7 +22,7 @@ export class HistoryService {
   // Headers
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json; charset=utf-8',
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
       'Access-Control-Allow-Headers':
