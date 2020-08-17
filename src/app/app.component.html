@@ -31,14 +31,14 @@
               <button
                 type="button"
                 class="btn btn-warning btn-sm"
-                (click)="editFuel(historico)"
+                (click)="editFuel(history)"
               >
                 Editar
               </button>
               <button
                 type="button"
                 class="btn btn-danger btn-sm ml-1"
-                (click)="deleteFuel(historico)"
+                (click)="deleteFuel(history)"
               >
                 Deletar
               </button>
@@ -49,7 +49,7 @@
     </div>
   </div>
 
-  <div class="card add-combustivel">
+  <div class="card add-fuel">
     <h5 class="card-header">Adicionar/Atualizar combustível</h5>
     <div class="card-body">
       <form
@@ -114,12 +114,12 @@
             <div *ngIf="preco.errors.required">Preço é obrigatório</div>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary btn-add-combustivel">
+        <button type="submit" class="btn btn-primary btn-add-fuel">
           Salvar
         </button>
         <button
           type="reset"
-          class="btn btn-secondary btn-add-combustivel"
+          class="btn btn-secondary btn-add-fuel"
           (click)="cleanForm(f)"
         >
           Limpar campos
