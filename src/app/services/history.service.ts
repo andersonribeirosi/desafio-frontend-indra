@@ -13,8 +13,8 @@ import { User } from '../models/user';
   providedIn: 'root',
 })
 export class HistoryService {
-  urlHistory = 'https://combustivelapp.herokuapp.com/api/historico';
-  urlUser = 'https://combustivelapp.herokuapp.com/api/usuarios';
+  urlFuel = 'api/historico';
+  urlUser = '/api/usuarios';
 
   // injetando o HttpClient
   constructor(private httpClient: HttpClient) {}
@@ -22,21 +22,25 @@ export class HistoryService {
   // Headers
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json; charset=UTF-8',
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+      'Access-Control-Allow-Headers':
+        'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers',
     }),
   };
 
   // Obtem todos os combustiveis
   getFuels(): Observable<Fuel> {
     return this.httpClient
-      .get<Fuel>(this.urlHistory, this.httpOptions)
+      .get<Fuel>(this.urlFuel, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
 
   // salva um combustível
   saveFuel(fuel: Fuel): Observable<Fuel> {
     return this.httpClient
-      .post<Fuel>(this.urlHistory, JSON.stringify(fuel), this.httpOptions)
+      .post<Fuel>(this.urlFuel, JSON.stringify(fuel), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
 
@@ -44,7 +48,7 @@ export class HistoryService {
   updateFuel(fuel: Fuel): Observable<Fuel> {
     return this.httpClient
       .put<Fuel>(
-        this.urlHistory + '/' + fuel.id,
+        this.urlFuel + '/' + fuel.id,
         JSON.stringify(fuel),
         this.httpOptions
       )
@@ -54,7 +58,7 @@ export class HistoryService {
   // deleta um combustível
   deleteFuel(fuel: Fuel) {
     return this.httpClient
-      .delete<Fuel>(this.urlHistory + '/' + fuel.id, this.httpOptions)
+      .delete<Fuel>(this.urlFuel + '/' + fuel.id, this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
   }
 
@@ -67,7 +71,7 @@ export class HistoryService {
 
   saveUser(user: User): Observable<User> {
     return this.httpClient
-      .post<User>(this.urlHistory, JSON.stringify(user), this.httpOptions)
+      .post<User>(this.urlUser, JSON.stringify(user), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
 

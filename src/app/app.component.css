@@ -11,6 +11,11 @@
   margin-bottom: 30px;
 }
 
+.btn-success {
+  margin-top: 5px;
+  float: right;
+}
+
 .list-fuel {
   margin-bottom: 50px;
 }

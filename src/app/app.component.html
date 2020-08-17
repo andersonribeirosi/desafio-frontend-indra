@@ -2,9 +2,18 @@
 <app-navbar></app-navbar>
 
 <div class="container">
-  <button id="btn-user" class="btn btn-info btn-sm">
-    Lista de Usuários
-  </button>
+  <div>
+    <button id="btn-user" class="btn btn-info btn-sm">
+      Lista de Usuários
+    </button>
+    <button
+      type="button"
+      class="btn btn-success btn-sm ml-1"
+      (click)="reloadPage()"
+    >
+      Atualizar Página
+    </button>
+  </div>
   <div class="card list-fuel">
     <h5 class="card-header">Lista de Combustíveis</h5>
     <div class="card-body">
@@ -66,7 +75,7 @@
             required
             class="form-control"
             [ngClass]="{ 'is-invalid': f.submitted && data.invalid }"
-            placeholder="Informe a data"
+            placeholder="Informe a data: dd/MM/yyyy"
           />
           <div *ngIf="f.submitted && data.invalid" class="invalid-feedback">
             <div *ngIf="data.errors.required">Data é obrigatório</div>

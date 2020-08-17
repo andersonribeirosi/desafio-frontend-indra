@@ -1,7 +1,8 @@
 {
-  "/api": {
-    "target": "https://combustivelapp.herokuapp.com",
+  "/api/*": {
+    "target": "https://combustivelapp.herokuapp.com/",
     "secure": false,
-    "pathRewrite": { "^/api": "" }
+    "logLevel": "debug",
+    "changeOrigin": true
   }
 }

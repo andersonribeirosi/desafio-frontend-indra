@@ -16,6 +16,11 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.getFuels();
+    // this.load();
+  }
+
+  load() {
+    location.reload();
   }
 
   // defini se um carro será criado ou atualizado
@@ -36,6 +41,10 @@ export class AppComponent implements OnInit {
     this.historyService.getFuels().subscribe((histories: any) => {
       this.histories = histories;
     });
+  }
+
+  reloadPage() {
+    this.load();
   }
 
   // deleta um carro
